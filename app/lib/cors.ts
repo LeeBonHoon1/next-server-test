@@ -1,7 +1,7 @@
 // lib/cors.ts
 import { NextResponse } from "next/server";
 
-export function withCors(jsonData: any) {
+export function withCors(jsonData: Record<string, unknown> | unknown[]) {
   const res = NextResponse.json(jsonData);
   res.headers.set("Access-Control-Allow-Origin", "*");
   res.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
