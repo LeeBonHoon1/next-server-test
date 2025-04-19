@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { withCors, preflight } from "@/app/lib/cors";
 
 export async function GET() {
-  return NextResponse.json({
+  return withCors({
     title: "파트별 커리큘럼",
 
     plan: [
@@ -70,4 +70,8 @@ export async function GET() {
       { id: 8, value: "고급 실전 전략과 CI/CD Pipeline" },
     ],
   });
+}
+
+export async function OPTIONS() {
+  return preflight();
 }
