@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { withCors } from "@/app/lib/cors";
 
 export async function GET() {
-  return NextResponse.json({
+  return withCors({
     coreValue: {
       title: "핵심 가치",
       description: "1기 NextDev가 함께 나아가고 싶은 사람입니다.",

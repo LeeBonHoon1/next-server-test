@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { withCors } from "@/app/lib/cors";
 
 export async function GET() {
-  return NextResponse.json({
+  return withCors({
     activity_records: {
       member: 198,
       project: 25,

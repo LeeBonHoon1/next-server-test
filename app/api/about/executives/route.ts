@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { withCors } from "@/app/lib/cors";
 
 const executives = [
   {
@@ -44,5 +44,5 @@ const executives = [
 ];
 
 export async function GET() {
-  return NextResponse.json({ executives });
+  return withCors({ executives });
 }
