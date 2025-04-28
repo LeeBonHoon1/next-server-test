@@ -15,22 +15,27 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, account }) {
-      console.log("🔥 [jwt callback] token:", token);
+      console.log("🔥 [jwt callback] BEFORE token:", token);
       console.log("🔥 [jwt callback] account:", account);
-      if (account) {
+
+      if (account?.access_token) {
         token.accessToken = account.access_token;
       }
+
+      console.log("🔥 [jwt callback] AFTER token:", token);
       return token;
     },
+
     async session({ session, token }: { session: Session; token: JWT }) {
-      console.log("🔥 [session callback] session before:", session);
+      console.log("🔥 [session callback] BEFORE session:", session);
       console.log("🔥 [session callback] token:", token);
-      if (token) {
-        session.accessToken = token.accessToken as string;
-      }
-      console.log("🔥 [session callback] session after:", session);
+
+      session.accessToken = token.accessToken as string;
+
+      console.log("🔥 [session callback] AFTER session:", session);
       return session;
     },
+
     async redirect() {
       return "http://localhost:5173/";
     },
