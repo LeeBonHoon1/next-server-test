@@ -23,11 +23,12 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
-      console.log("🔥 [session callback] session:", session);
+      console.log("🔥 [session callback] session before:", session);
       console.log("🔥 [session callback] token:", token);
       if (token) {
         session.accessToken = token.accessToken as string;
       }
+      console.log("🔥 [session callback] session after:", session);
       return session;
     },
     async redirect() {
