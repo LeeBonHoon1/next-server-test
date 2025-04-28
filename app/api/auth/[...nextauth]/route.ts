@@ -10,6 +10,18 @@ const handler = NextAuth({
       id: "kakao",
     }),
   ],
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+        domain: ".vercel.app", // vercel.app 도메인에서 작동하도록
+      },
+    },
+  },
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30일
