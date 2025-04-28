@@ -10,7 +10,7 @@ export interface Activity {
   createdAt: string;
 }
 
-export const activitys: Activity[] = [
+export const activities: Activity[] = [
   {
     id: 1,
     category: "서류/면접",
