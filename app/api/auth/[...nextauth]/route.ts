@@ -30,10 +30,10 @@ const handler = NextAuth({
       console.log("🔥 [session callback] BEFORE session:", session);
       console.log("🔥 [session callback] token:", token);
 
-      session.accessToken = token.accessToken as string;
-
-      console.log("🔥 [session callback] AFTER session:", session);
-      return session;
+      return {
+        ...session,
+        accessToken: token.accessToken as string,
+      };
     },
 
     async redirect() {
