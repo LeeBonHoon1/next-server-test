@@ -12,6 +12,7 @@ const handler = NextAuth({
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30일
   },
   callbacks: {
     async jwt({ token, account }) {
@@ -30,18 +31,27 @@ const handler = NextAuth({
       console.log("🔥 [session callback] BEFORE session:", session);
       console.log("🔥 [session callback] token:", token);
 
-      return {
-        ...session,
-        accessToken: token.accessToken as string,
-      };
+      if (!session.user) {
+        session.user = {
+          name: token.name,
+          email: token.email,
+          image: token.picture,
+        };
+      }
+
+      session.accessToken = token.accessToken as string;
+
+      console.log("🔥 [session callback] AFTER session:", session);
+      return session;
     },
 
-    async redirect({ url }) {
-      // 카카오 로그인 후 콜백 URL로 리다이렉트
-      if (url.startsWith("/api/auth/callback/kakao")) {
+    async redirect({ url, baseUrl }) {
+      console.log("🔥 [redirect callback] url:", url);
+      console.log("🔥 [redirect callback] baseUrl:", baseUrl);
+
+      if (url.startsWith(baseUrl) || url.startsWith("/api/auth")) {
         return url;
       }
-      // 그 외의 경우 React 클라이언트로 리다이렉트
       return "http://localhost:5173";
     },
   },
