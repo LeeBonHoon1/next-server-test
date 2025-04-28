@@ -36,8 +36,13 @@ const handler = NextAuth({
       };
     },
 
-    async redirect() {
-      return "http://localhost:5173/";
+    async redirect({ url }) {
+      // 카카오 로그인 후 콜백 URL로 리다이렉트
+      if (url.startsWith("/api/auth/callback/kakao")) {
+        return url;
+      }
+      // 그 외의 경우 React 클라이언트로 리다이렉트
+      return "http://localhost:5173";
     },
   },
 });
