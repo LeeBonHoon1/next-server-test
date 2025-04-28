@@ -7,6 +7,7 @@ const handler = NextAuth({
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
+      id: "kakao",
     }),
   ],
   session: {
@@ -24,6 +25,9 @@ const handler = NextAuth({
         session.accessToken = token.accessToken as string;
       }
       return session;
+    },
+    async redirect() {
+      return "http://localhost:5173/";
     },
   },
 });
