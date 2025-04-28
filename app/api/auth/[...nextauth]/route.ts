@@ -15,12 +15,16 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, account }) {
+      console.log("🔥 [jwt callback] token:", token);
+      console.log("🔥 [jwt callback] account:", account);
       if (account) {
         token.accessToken = account.access_token;
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
+      console.log("🔥 [session callback] session:", session);
+      console.log("🔥 [session callback] token:", token);
       if (token) {
         session.accessToken = token.accessToken as string;
       }
